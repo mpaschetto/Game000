@@ -20,3 +20,19 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+#chatContainer {
+  overflow-y: auto;
+  height: calc(100vh - 220px);
+  padding-right: 210px;
+  padding-bottom: 210px;
+}
+
+#mobileChat {
+  height: 100vh;
+}
+
+#mobileChat #messagesList {
+  overflow-y: auto;
+  flex-grow: 1;
+}
