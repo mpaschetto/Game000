@@ -3,13 +3,27 @@
 @{
     ViewData["Title"] = "Display";
 }
-<div class="text-center">
-    <h2>Chat Room</h2>
-    <img src="@Model.QrCodeImage" alt="QR Code" />
-    <ul id="messagesList" class="list-unstyled mt-3"></ul>
+<div class="container-fluid">
+    <div class="row">
+        <div>
+            <div class="d-flex flex-column h-100" style="height: 100vh;">
+                <h2 class="mt-3">Chat Room</h2>
+                <div id="chatContainer" class="flex-grow-1 overflow-auto border rounded p-3 bg-light" style="min-height: 400px; max-height: 80vh;">
+                    <ul id="messagesList" class="list-unstyled mb-0"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- QR code fixed in bottom right -->
+    <div style="position: fixed; bottom: 24px; right: 24px; z-index: 1050;">
+        <img src="@Model.QrCodeImage" alt="QR Code" class="img-thumbnail shadow" style="width: 180px; height: 180px;" />
+    </div>
 </div>
 @section Scripts {
     <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
-    <script>const roomId = "@Model.RoomId";</script>
+    <script>
+        const roomId = "@Model.RoomId";
+        console.log('URL: ', "@Model.URL");
+    </script>
     <script src="~/js/display.js"></script>
 }
