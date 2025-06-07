@@ -2,6 +2,8 @@
 
 const connection = new signalR.HubConnectionBuilder().withUrl("/Game000/chatHub").build();
 
+let userName = "";
+
 document.getElementById("sendButton").disabled = true;
 
 connection.on("ReceiveMessage", function (user, message) {
@@ -12,15 +14,27 @@ connection.on("ReceiveMessage", function (user, message) {
 
 connection.start().then(function () {
     connection.invoke("JoinRoom", roomId);
-    document.getElementById("sendButton").disabled = false;
 }).catch(function (err) {
     return console.error(err.toString());
 });
 
+document.getElementById("joinButton").addEventListener("click", function (event) {
+    const nameInput = document.getElementById("userInput");
+    const name = nameInput.value.trim();
+    if (name !== "") {
+        userName = name;
+        document.getElementById("usernameForm").style.display = "none";
+        const chatArea = document.getElementById("chatArea");
+        chatArea.style.display = "flex";
+        document.getElementById("sendButton").disabled = false;
+        document.getElementById("messageInput").focus();
+    }
+    event.preventDefault();
+});
+
 document.getElementById("sendButton").addEventListener("click", function (event) {
-    const user = document.getElementById("userInput").value;
     const message = document.getElementById("messageInput").value;
-    connection.invoke("SendMessage", roomId, user, message).catch(function (err) {
+    connection.invoke("SendMessage", roomId, userName, message).catch(function (err) {
         return console.error(err.toString());
     });
     document.getElementById("messageInput").value = "";
