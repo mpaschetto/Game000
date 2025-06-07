@@ -1,0 +1,16 @@
+@page
+@model GameServer.Pages.ChatModel
+@{
+    ViewData["Title"] = "Chat";
+}
+<div class="container">
+    <input class="form-control mb-2" id="userInput" placeholder="Name" />
+    <input class="form-control mb-2" id="messageInput" placeholder="Message" />
+    <button class="btn btn-primary" id="sendButton">Send</button>
+    <ul id="messagesList" class="list-unstyled mt-3"></ul>
+</div>
+@section Scripts {
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+    <script>const roomId = "@Model.RoomId";</script>
+    <script src="~/js/mobile.js"></script>
+}

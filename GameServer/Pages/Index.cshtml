@@ -1,28 +1,15 @@
-﻿@page
-<div class="container">
-    <div class="row p-1">
-        <div class="col-1">User</div>
-        <div class="col-5"><input type="text" id="userInput" /></div>
-    </div>
-    <div class="row p-1">
-        <div class="col-1">Message</div>
-        <div class="col-5"><input type="text" class="w-100" id="messageInput" /></div>
-    </div>
-    <div class="row p-1">
-        <div class="col-6 text-end">
-            <input type="button" id="sendButton" value="Send Message" />
-        </div>
-    </div>
-    <div class="row p-1">
-        <div class="col-6">
-            <hr />
-        </div>
-    </div>
-    <div class="row p-1">
-        <div class="col-6">
-            <ul id="messagesList"></ul>
-        </div>
-    </div>
+@page
+@model GameServer.Pages.IndexModel
+@{
+    ViewData["Title"] = "Display";
+}
+<div class="text-center">
+    <h2>Chat Room</h2>
+    <img src="@Model.QrCodeImage" alt="QR Code" />
+    <ul id="messagesList" class="list-unstyled mt-3"></ul>
 </div>
-<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
-<script src="~/js/chat.js"></script>
+@section Scripts {
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+    <script>const roomId = "@Model.RoomId";</script>
+    <script src="~/js/display.js"></script>
+}
