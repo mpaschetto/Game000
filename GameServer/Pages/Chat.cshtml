@@ -3,11 +3,18 @@
 @{
     ViewData["Title"] = "Chat";
 }
-<div class="container">
-    <input class="form-control mb-2" id="userInput" placeholder="Name" />
-    <input class="form-control mb-2" id="messageInput" placeholder="Message" />
-    <button class="btn btn-primary" id="sendButton">Send</button>
-    <ul id="messagesList" class="list-unstyled mt-3"></ul>
+<div id="mobileChat" class="container d-flex flex-column" style="height:100vh;">
+    <div id="usernameForm" class="my-auto">
+        <input class="form-control mb-2" id="userInput" placeholder="Name" />
+        <button class="btn btn-primary" id="joinButton">Join</button>
+    </div>
+    <div id="chatArea" class="d-flex flex-column flex-grow-1" style="display:none;">
+        <ul id="messagesList" class="list-unstyled flex-grow-1 mb-2 overflow-auto"></ul>
+        <div class="input-group">
+            <input class="form-control" id="messageInput" placeholder="Message" />
+            <button class="btn btn-primary" id="sendButton">Send</button>
+        </div>
+    </div>
 </div>
 @section Scripts {
     <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
