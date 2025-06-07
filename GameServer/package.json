@@ -1,0 +1,13 @@
+{
+  "name": "gameserver",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "@babel/cli": "^7.23.0",
+    "@babel/core": "^7.23.0",
+    "@babel/preset-env": "^7.23.0"
+  },
+  "scripts": {
+    "build:js": "npx babel wwwroot/js --out-dir wwwroot/js --presets=@babel/preset-env && npx babel wwwroot/lib/microsoft/signalr/dist/browser --out-dir wwwroot/lib/microsoft/signalr/dist/browser --presets=@babel/preset-env"
+  }
+}

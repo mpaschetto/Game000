@@ -10,4 +10,13 @@
     <PackageReference Include="QRCoder" Version="1.6.0" />
   </ItemGroup>
 
+  <Target Name="EnsureNodeModules" BeforeTargets="Publish">
+    <Exec Command="npm install" />
+  </Target>
+
+  <Target Name="TranspileJavaScript" AfterTargets="Publish">
+    <Exec Command="npx babel \"$(ProjectDir)wwwroot/js\" --out-dir \"$(PublishDir)wwwroot/js\" --presets @babel/preset-env" />
+    <Exec Command="npx babel \"$(ProjectDir)wwwroot/lib/microsoft/signalr/dist/browser\" --out-dir \"$(PublishDir)wwwroot/lib/microsoft/signalr/dist/browser\" --presets @babel/preset-env" />
+  </Target>
+
 </Project>
