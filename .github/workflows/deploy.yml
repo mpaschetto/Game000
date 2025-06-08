@@ -10,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
@@ -20,20 +21,10 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
 
-    - name: Publish
+    - name: Publish GameServer
       run: dotnet publish GameServer/GameServer.csproj -c Release -o ./out
 
-    - name: Deploy via SCP (manual)
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USER }}
-        key: ${{ secrets.SSH_KEY }}
-        script: |
-          mkdir -p /var/www/game000
-          rm -rf /var/www/game000/*
-          exit 0
-    - name: Write SSH key to file
+    - name: Save SSH key to file
       run: |
         echo "${{ secrets.SSH_KEY }}" > deploy_key.pem
         chmod 600 deploy_key.pem
@@ -41,4 +32,3 @@ jobs:
     - name: Upload files via SCP
       run: |
         scp -i deploy_key.pem -o StrictHostKeyChecking=no -r ./out/* ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/game000
-
