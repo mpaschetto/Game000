@@ -32,3 +32,7 @@ jobs:
     - name: Upload files via SCP
       run: |
         scp -i deploy_key.pem -o StrictHostKeyChecking=no -r ./out/* ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/game000
+
+    - name: Restart SignalR app
+      run: |
+        ssh -i deploy_key.pem -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "sudo systemctl restart signalrapp"
