@@ -33,7 +33,12 @@ jobs:
           mkdir -p /var/www/game000
           rm -rf /var/www/game000/*
           exit 0
-    - name: Upload files
+    - name: Write SSH key to file
       run: |
-        scp -i ${{ secrets.SSH_KEY }} -o StrictHostKeyChecking=no -r ./out/* ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/game000
+        echo "${{ secrets.SSH_KEY }}" > deploy_key.pem
+        chmod 600 deploy_key.pem
+
+    - name: Upload files via SCP
+      run: |
+        scp -i deploy_key.pem -o StrictHostKeyChecking=no -r ./out/* ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/game000
 
